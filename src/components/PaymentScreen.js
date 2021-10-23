@@ -6,7 +6,7 @@ import Colors from '../res/colors'
 const PaymentScreen = ({ route, navigation }) => {
 
     const { amountToBuy, name } = route.params;
-    // wherever the useState is located 
+    // wherever the useState is located
     const [isBiometricSupported, setIsBiometricSupported] = useState(false);
 
     // Check if hardware supports biometrics
@@ -75,10 +75,7 @@ const PaymentScreen = ({ route, navigation }) => {
             `You bought ${amountToBuy} of ${name} successfully!`,
             'OK', navigation.navigate('Coins'));
 
-        console.log({ isBiometricAvailable });
-        console.log({ supportedBiometrics });
-        console.log({ savedBiometrics });
-        console.log({ biometricAuth });
+
     };
 
 

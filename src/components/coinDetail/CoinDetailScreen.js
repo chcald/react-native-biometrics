@@ -13,6 +13,7 @@ const CoinDetailScreen = ({ route, navigation }) => {
         navigation.setOptions({ title: coin.symbol })
     }, []);
 
+    //Method to calculate the amount of cryptocurrency when the user enter a number 
     useEffect(() => {
         if (amount > 0) {
             setAmountToBuy((amount / coin.price_usd).toFixed(4));
@@ -29,10 +30,9 @@ const CoinDetailScreen = ({ route, navigation }) => {
         }
     }
 
+    //Method to buy coins
     const buyCoin = () => {
-        console.log(amount)
         if (amount > 0) {
-
             navigation.navigate('Payment', { amountToBuy, name: coin.name });
         } else {
             return Alert.alert('Message', 'You have to enter an amount', [

@@ -14,7 +14,16 @@ const CoinsScreen = ({ navigation }) => {
         getCoins()
     }, []);
 
+    //Restart the search when you navigate from another page
+    useEffect(() => {
+      const unsubscribe = navigation.addListener('focus', () =>{
+         getCoins();
+         setAllCoins([]);
+      })
+      return unsubscribe;
+    }, [navigation]);
 
+    //Calling the API to get the coins
     const getCoins = async () => {
         setLoading(true);
         const res = await Http.instance.get('https://api.coinlore.net/api/tickers/');
@@ -28,6 +37,7 @@ const CoinsScreen = ({ navigation }) => {
         navigation.navigate('CoinDetail', { coin })
     }
 
+    //Method to search with the query of the input
     const handleSearch = (query) => {
 
         const coinsFiltered = allCoins.filter((coin) => {
@@ -43,8 +53,6 @@ const CoinsScreen = ({ navigation }) => {
 
             <CoinsSearch onchange={handleSearch} />
 
-            {/* <Text style={styles.titleText}>Coins Screen</Text>
-                <Pressable style={styles.btn} onPress={this.handlePress} ><Text>Go to detail</Text></Pressable> */}
 
             {loading &&
                 <ActivityIndicator
@@ -67,7 +75,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: Colors.charade,
-        // alignItems: 'center'
+
     },
     titleText: {
         color: '#fff',
@@ -83,9 +91,6 @@ const styles = StyleSheet.create({
         color: '#fff',
         textAlign: 'center',
     },
-    loader: {
-
-    }
 
 })
 
